@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">testplugin</string>
+    <string name="plugin_label">MD2 Clock Plugin</string>
+    <string name="clock_name">Material Design 2</string>
+    <string name="clock_desc">Classic</string>
+    <string name="keyguard_widget_12_hours_format">h:mm</string>
+    <string name="keyguard_widget_24_hours_format">kk:mm</string>
+</resources>

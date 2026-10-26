@@ -47,13 +47,13 @@ public class MD2ClockPlugin implements ClockProviderPlugin {
         ClockProviderPlugin.super.onCreate(sysuiContext, pluginContext);
         thisCtx = pluginContext;
         res = thisCtx.getResources();
-        clock = new MD2ClockController(pluginContext, res, sysuiContext);
-        /* API wasn't finished yet
+        clock = new MD2ClockController(pluginContext, sysuiContext);
+        // API wasn't finished yet
         pickerConfig = new ClockPickerConfig(id,
                 res.getString(R.string.clock_name),
                 res.getString(R.string.clock_desc),
                 res.getDrawable(R.drawable.md2_thumbnail, null),
-                false);*/
+                false);
     }
 
     @Override

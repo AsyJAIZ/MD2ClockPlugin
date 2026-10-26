@@ -1,5 +1,7 @@
 package com.asyjaiz.testplugin;
 
+import android.content.Context;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -14,8 +16,10 @@ import java.util.List;
 
 public class MD2ClockFaceLayout implements ClockFaceLayout {
     View view;
-    public MD2ClockFaceLayout(View view) {
+    Context sysCtx;
+    public MD2ClockFaceLayout(View view, Context systemContext) {
         this.view = view;
+        sysCtx = systemContext;
     }
 
     @Override
@@ -35,6 +39,14 @@ public class MD2ClockFaceLayout implements ClockFaceLayout {
     @NonNull
     @Override
     public ConstraintSet applyConstraints(@NonNull ConstraintSet constraintSet) {
+        //constraintSet.constrainHeight(0, ConstraintSet.WRAP_CONTENT);
+        for (int id : constraintSet.getKnownIds()) {
+            Log.i("MD2ClockFaceLayout", "ID: " + sysCtx.getResources().getResourceEntryName(id));
+        }
+        constraintSet.connect(view.getId(), ConstraintSet.TOP, 0, ConstraintSet.TOP);
+        constraintSet.connect(view.getId(), ConstraintSet.BOTTOM, 0, ConstraintSet.BOTTOM);
+        constraintSet.connect(view.getId(), ConstraintSet.START, 0, ConstraintSet.START);
+        constraintSet.connect(view.getId(), ConstraintSet.END, 0, ConstraintSet.END);
         return constraintSet;
     }
 

@@ -9,17 +9,17 @@ import com.android.systemui.plugins.clocks.ClockConfig;
 import com.android.systemui.plugins.clocks.ClockController;
 import com.android.systemui.plugins.clocks.ClockEvents;
 import com.android.systemui.plugins.clocks.ClockFaceController;
+import com.android.systemui.plugins.clocks.ThemeConfig;
 
 import java.io.PrintWriter;
 
 public class MD2ClockController implements ClockController {
-    Resources res;
     ClockEvents events;
     ClockConfig config;
     ClockFaceController clock;
-    ClockFaceController clockL;
-    public MD2ClockController(Context context, Resources res, Context sysUiContext) {
-        this.res = res;
+    ClockFaceController largeClock;
+    public MD2ClockController(Context context, Context sysUiContext) {
+        Resources res = context.getResources();
         events = new MD2ClockEventsStub();
         config = new ClockConfig(MD2ClockPlugin.id,
                 res.getString(R.string.clock_name),
@@ -27,8 +27,8 @@ public class MD2ClockController implements ClockController {
                 false,
                 false,
                 false);
-        clock = new MD2ClockFaceController(context, sysUiContext);
-        clockL = new MD2ClockFaceController(context, sysUiContext);
+        clock = new MD2ClockFaceController(context, sysUiContext, false);
+        largeClock = new MD2ClockFaceController(context, sysUiContext, true);
     }
 
     @NonNull
@@ -40,7 +40,7 @@ public class MD2ClockController implements ClockController {
     @NonNull
     @Override
     public ClockFaceController getLargeClock() {
-        return clockL;
+        return largeClock;
     }
 
     @NonNull
@@ -57,7 +57,9 @@ public class MD2ClockController implements ClockController {
 
     @Override
     public void initialize(boolean isDarkTheme, float doseFraction, float foldFraction) {
-
+        ThemeConfig t = new ThemeConfig(isDarkTheme, null);
+        clock.getEvents().onThemeChanged(t);
+        largeClock.getEvents().onThemeChanged(t);
     }
 
     public void initialize(Resources res, float doseFraction, float foldFraction) {
